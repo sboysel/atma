@@ -15,16 +15,16 @@ points:
             stagger: 0
         ring:
           key:
-            stagger: 0
+            stagger: 0.25ky
         middle:
           key:
-            stagger: 0
+            stagger: 0.25ky
         index:
           key:
-            stagger: 0
+            stagger: -0.1ky
         inner:
           key:
-            stagger: 0
+            stagger: -0.1ky
       rows:
         bottom:
         home:
@@ -32,14 +32,17 @@ points:
     thumbfan:
       anchor:
         ref: matrix_middle_bottom
-        shift: [px, -2ky - py]
+        shift: [px, -1.5ky - py]
       columns:
         near:
           key:
+            splay: -10
         home:
           key:
+            stagger: -0.1ky
         far:
           key:
+            stagger: -0.1ky
       rows:
         home:
   key:
@@ -55,17 +58,17 @@ outlines:
     - what: polygon
       points:
         # NE
-        - ref: matrix_pinky_top
-          shift: [4.5kx + px, 0.5ky]
+        - ref: matrix_middle_home
+          shift: [2.5kx + px, 1.5ky]
         # SE
-        - ref: matrix_pinky_top
-          shift: [4.5kx + px, -4.5ky - py]
+        - ref: matrix_middle_home
+          shift: [2.5kx + px, -3.5ky - py]
         # SW
-        - ref: matrix_pinky_top
-          shift: [-0.5kx, -4.5ky - py]
+        - ref: matrix_middle_home
+          shift: [-2.5kx, -3.5ky - py]
         # NW
-        - ref: matrix_pinky_top
-          shift: [-0.5kx, 0.5ky]
+        - ref: matrix_middle_home
+          shift: [-2.5kx, 1.5ky]
       fillet: 3
 
 pcbs:
@@ -88,20 +91,31 @@ pcbs:
         what: rp2040_zero_tht_pads
         where:
           ref: matrix_pinky_bottom
-          shift: [0.25kx, -1.2ky]
+          shift: [0.1kx, -1.1ky]
           rotate: 90
-      trrs:
-        what: trrs
+      # trrs:
+      #   what: trrs
+      #   where:
+      #     ref: matrix_inner_bottom
+      #     shift: [0.7kx, -0.9ky]
+      #     rotate: 270
+      #   params:
+      #     A: GND  # ring
+      #     B: VCC  # ring
+      #     C: P0   # tip
+      #     D: P1  # sleeve
+      #     reverse: true
+      #     symmetric: false
+      #     cross: true
+      molex:
+        what: molex_441440003
         where:
           ref: matrix_inner_bottom
-          shift: [0.7kx, -0.9ky]
-          rotate: 270
+          shift: [-0.2kx, -1ky]
+          rotate: 90
         params:
-          A: GND  # ring
-          B: VCC  # ring
-          C: P0   # tip
-          D: P1  # sleeve
-          reverse: true
-          symmetric: false
-          cross: true
+          TX: GP0
+          RX: GP1
+          POWER: 3V3
+          GND: GND
 
