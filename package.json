@@ -1,0 +1,11 @@
+{
+    "name": "quadrate",
+    "version": "0.0.1",
+    "dependencies": {
+        "@jscad/modeling": "2.11.0",
+        "ergogen": "github:sboysel/ergogen#develop"
+    },
+    "scripts": {
+        "gen": "ergogen quadrate.yaml"
+    }
+}

@@ -1,0 +1,128 @@
+units:
+  kx: U
+  ky: U
+
+points:
+  zones:
+    matrix:
+      anchor:
+        shift: [8kx, -8ky]
+      columns:
+        pinky:
+          key:
+            stagger: 0
+        ring:
+          key:
+            stagger: 0.5ky
+        middle:
+          key:
+            stagger: 0.2ky
+        index:
+          key:
+            stagger: -0.1ky
+        inner:
+          key:
+            stagger: -0.2ky
+      rows:
+        bottom:
+        home:
+        top:
+    thumbfan:
+      anchor:
+        ref: matrix_index_bottom
+        shift: [4, -1.5ky]
+      columns:
+        near:
+          key:
+            stagger: 0
+            splay: -20
+        # home:
+        #   key:
+        #     stagger: -0.3ky
+        #     splay: -10
+        #     shift: [0.125kx, -0.075ky]
+        far:
+          key:
+            stagger: -0.1ky
+            splay: -10
+            shift: [0.1kx, 0]
+      rows:
+        home:
+  key:
+    padding: ky
+
+outlines:
+  _switches:
+    - what: rectangle
+      where: true
+      size: 14
+      bound: false
+  quadrate_bottom_plate:
+    - what: polygon
+      points:
+        # NE
+        - ref: matrix_middle_top
+          shift: [2.5kx + 4, 0.5ky]
+        # SE
+        # - ref: thumbfan_far_home
+        #   shift: [0.5kx, -0.5ky]
+        - ref: matrix_middle_bottom
+          shift: [2.5kx + 4, -2.5ky - 4]
+        # SW
+        # - ref: thumbfan_far_home
+        #   shift: [-4.5kx - 4, -0.5ky]
+        - ref: matrix_middle_bottom
+          shift: [-2.5kx, -2.5ky - 4]
+        # NW
+        - ref: matrix_middle_top
+          shift: [-2.5kx, 0.5ky]
+      fillet: 3
+
+pcbs:
+  quadrate_pcb:
+    outlines:
+      main:
+        outline: quadrate_bottom_plate
+        footprints:
+    footprints:
+      mx:
+        what: mx
+        where: true
+        params:
+          keycaps: true
+          reverse: true
+          hotswap: false 
+          from: "{{name}}"
+          to: GND
+      # diodes:
+      #   what: diode
+      #   where: true
+      #   params:
+      #     from: "{{name}}"
+      #     to: GND
+      # promicro:
+      #   what: promicro
+      #   where:
+      #     ref: matrix_pinky_bottom
+      #     shift: [0.5kx, -1.2ky]
+      rp2040_zero:
+        what: rp2040_zero_tht_pads
+        where:
+          ref: matrix_pinky_bottom
+          shift: [0.25kx, -1.2ky]
+          rotate: 90
+      trrs:
+        what: trrs
+        where:
+          ref: matrix_inner_bottom
+          shift: [0.7kx, -0.9ky]
+          rotate: 270
+        params:
+          A: GND  # ring
+          B: VCC  # ring
+          C: P0   # tip
+          D: P1  # sleeve
+          reverse: true
+          symmetric: false
+          cross: true
+
