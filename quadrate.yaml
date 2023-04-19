@@ -1,6 +1,8 @@
 units:
   kx: U
   ky: U
+  px: 100 - 5U
+  py: 100 - 5U
 
 points:
   zones:
@@ -13,39 +15,31 @@ points:
             stagger: 0
         ring:
           key:
-            stagger: 0.5ky
+            stagger: 0
         middle:
           key:
-            stagger: 0.2ky
+            stagger: 0
         index:
           key:
-            stagger: -0.1ky
+            stagger: 0
         inner:
           key:
-            stagger: -0.2ky
+            stagger: 0
       rows:
         bottom:
         home:
         top:
     thumbfan:
       anchor:
-        ref: matrix_index_bottom
-        shift: [4, -1.5ky]
+        ref: matrix_middle_bottom
+        shift: [px, -2ky - py]
       columns:
         near:
           key:
-            stagger: 0
-            splay: -20
-        # home:
-        #   key:
-        #     stagger: -0.3ky
-        #     splay: -10
-        #     shift: [0.125kx, -0.075ky]
+        home:
+          key:
         far:
           key:
-            stagger: -0.1ky
-            splay: -10
-            shift: [0.1kx, 0]
       rows:
         home:
   key:
@@ -61,21 +55,17 @@ outlines:
     - what: polygon
       points:
         # NE
-        - ref: matrix_middle_top
-          shift: [2.5kx + 4, 0.5ky]
+        - ref: matrix_pinky_top
+          shift: [4.5kx + px, 0.5ky]
         # SE
-        # - ref: thumbfan_far_home
-        #   shift: [0.5kx, -0.5ky]
-        - ref: matrix_middle_bottom
-          shift: [2.5kx + 4, -2.5ky - 4]
+        - ref: matrix_pinky_top
+          shift: [4.5kx + px, -4.5ky - py]
         # SW
-        # - ref: thumbfan_far_home
-        #   shift: [-4.5kx - 4, -0.5ky]
-        - ref: matrix_middle_bottom
-          shift: [-2.5kx, -2.5ky - 4]
+        - ref: matrix_pinky_top
+          shift: [-0.5kx, -4.5ky - py]
         # NW
-        - ref: matrix_middle_top
-          shift: [-2.5kx, 0.5ky]
+        - ref: matrix_pinky_top
+          shift: [-0.5kx, 0.5ky]
       fillet: 3
 
 pcbs:
@@ -94,17 +84,6 @@ pcbs:
           hotswap: false 
           from: "{{name}}"
           to: GND
-      # diodes:
-      #   what: diode
-      #   where: true
-      #   params:
-      #     from: "{{name}}"
-      #     to: GND
-      # promicro:
-      #   what: promicro
-      #   where:
-      #     ref: matrix_pinky_bottom
-      #     shift: [0.5kx, -1.2ky]
       rp2040_zero:
         what: rp2040_zero_tht_pads
         where:
