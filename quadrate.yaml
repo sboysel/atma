@@ -1,8 +1,6 @@
 units:
   kx: U
   ky: U
-  px: 100 - 5U
-  py: 100 - 5U
 
 points:
   zones:
@@ -15,34 +13,33 @@ points:
             stagger: 0
         ring:
           key:
-            stagger: 0.25ky
+            stagger: 0
         middle:
           key:
-            stagger: 0.25ky
+            stagger: 0
         index:
           key:
-            stagger: -0.1ky
+            stagger: 0
         inner:
           key:
-            stagger: -0.1ky
+            stagger: 0
       rows:
         bottom:
         home:
         top:
     thumbfan:
       anchor:
-        ref: matrix_middle_bottom
-        shift: [px, -1.5ky - py]
+        ref: matrix_index_bottom
+        shift: [0, -1.5ky]
       columns:
         near:
           key:
-            splay: -10
-        home:
-          key:
-            stagger: -0.1ky
+            splay: -20
+            shift: [0, 1]
         far:
           key:
-            stagger: -0.1ky
+            splay: -20
+            shift: [4.25, -1.75]
       rows:
         home:
   key:
@@ -57,19 +54,21 @@ outlines:
   quadrate_bottom_plate:
     - what: polygon
       points:
-        # NE
-        - ref: matrix_middle_home
-          shift: [2.5kx + px, 1.5ky]
-        # SE
-        - ref: matrix_middle_home
-          shift: [2.5kx + px, -3.5ky - py]
-        # SW
-        - ref: matrix_middle_home
-          shift: [-2.5kx, -3.5ky - py]
         # NW
-        - ref: matrix_middle_home
-          shift: [-2.5kx, 1.5ky]
-      fillet: 3
+        - ref: matrix_pinky_top
+          shift: [-0.5kx, 0.5ky]
+        # NE
+        - ref: matrix_inner_top
+          shift: [0.5kx, 0.5ky]
+        # SE
+        - ref: thumbfan_far_home
+          shift: [0.5kx, 0.5ky]
+        - ref: thumbfan_far_home
+          shift: [0.5kx, -0.5ky]
+        # SW
+        - ref: matrix_pinky_bottom
+          shift: [-0.5kx, -0.5ky - 1.1ky]
+      fillet: 2
 
 pcbs:
   quadrate_pcb:
@@ -91,31 +90,31 @@ pcbs:
         what: rp2040_zero_tht_pads
         where:
           ref: matrix_pinky_bottom
-          shift: [0.1kx, -1.1ky]
+          shift: [0.1kx, -1.05ky]
           rotate: 90
-      # trrs:
-      #   what: trrs
-      #   where:
-      #     ref: matrix_inner_bottom
-      #     shift: [0.7kx, -0.9ky]
-      #     rotate: 270
-      #   params:
-      #     A: GND  # ring
-      #     B: VCC  # ring
-      #     C: P0   # tip
-      #     D: P1  # sleeve
-      #     reverse: true
-      #     symmetric: false
-      #     cross: true
-      molex:
-        what: molex_441440003
+      trrs:
+        what: trrs
         where:
           ref: matrix_inner_bottom
-          shift: [-0.2kx, -1ky]
-          rotate: 90
+          shift: [0.7kx, -1ky]
+          rotate: 270
         params:
-          TX: GP0
-          RX: GP1
-          POWER: 3V3
-          GND: GND
+          A: GND  # ring
+          B: VCC  # ring
+          C: GP0   # tip
+          D: GP1  # sleeve
+          reverse: true
+          symmetric: false
+          cross: true
+      # molex:
+      #   what: molex_441440003
+      #   where:
+      #     ref: matrix_inner_bottom
+      #     shift: [-0.2kx, -1ky]
+      #     rotate: 90
+      #   params:
+      #     TX: GP0
+      #     RX: GP1
+      #     POWER: 3V3
+      #     GND: GND
 
