@@ -283,6 +283,10 @@
       },
       {
         "netclass": "Default",
+        "pattern": "thumbfan_home_home"
+      },
+      {
+        "netclass": "Default",
         "pattern": "thumbfan_far_home"
       },
       {
@@ -372,10 +376,6 @@
       {
         "netclass": "Default",
         "pattern": "5V"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "VCC"
       }
     ]
   },
