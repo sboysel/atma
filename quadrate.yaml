@@ -58,7 +58,7 @@ outlines:
         - ref: matrix_pinky_home
           shift: [-0.5kx, 1.5ky + py]
         - ref: matrix_middle_home
-          shift: [-0.5kx, 2.5ky + py]
+          shift: [px - 0.5kx, 2.5ky + py]
         # NE
         - ref: matrix_inner_home
           shift: [0.5kx + px, 2.5ky + py]
@@ -67,10 +67,10 @@ outlines:
           shift: [0.5kx + px, -2.5ky - py]
         # SW
         - ref: matrix_middle_home
-          shift: [-0.5kx, -2.5ky - py]
+          shift: [px - 0.5kx, -2.5ky - py]
         - ref: matrix_pinky_home
           shift: [-0.5kx, -1.5ky - py]
-      fillet: 2
+      fillet: 3
 
 pcbs:
   quadrate_pcb:
@@ -86,25 +86,65 @@ pcbs:
           keycaps: true
           reverse: true
           hotswap: false 
+          mirror_holes: true
           from: "{{name}}"
           to: GND
       rp2040_zero:
         what: rp2040_zero_tht_pads
         where:
           ref: matrix_index_top
-          shift: [0, (2ky + py) / 2]
+          shift: [0.15kx, (2ky + py) / 2]
           rotate: 90
+        params:
+          GP0: matrix_pinky_top
+          GP1: matrix_pinky_home
+          GP2: matrix_pinky_bottom
+          GP3: matrix_ring_top
+          GP4: matrix_ring_home
+          GP5: matrix_ring_bottom
+          GP6: matrix_middle_top
+          GP7: matrix_middle_home
+          GP10: matrix_middle_bottom
+          GP11: matrix_inner_bottom
+          GP12: matrix_inner_home
+          GP13: matrix_inner_top
+          GP27: matrix_index_top
+          GP28: matrix_index_home
+          GP29: matrix_index_bottom
+          GP14: thumbfan_far_home
+          GP15: thumbfan_home_home
+          GP26: thumbfan_near_home
       molex:
         what: molex_441440003
         where:
           ref: matrix_inner_top
-          shift: [0.2kx, 0.7ky]
+          shift: [0.31kx, 0.7ky]
           rotate: 180
         params:
-          TX: GP0
-          RX: GP1
+          TX: GP8
+          RX: GP9
           POWER: 3V3
           GND: GND
+      mountinghole_nw:
+        what: mountinghole
+        where:
+          ref: matrix_ring_home
+          shift: [-0.5kx, 0.5ky]
+      mountinghole_sw:
+        what: mountinghole
+        where:
+          ref: matrix_ring_home
+          shift: [-0.5kx, -0.5ky]
+      mountinghole_ne:
+        what: mountinghole
+        where:
+          ref: matrix_index_home
+          shift: [0.5kx, 0.5ky]
+      mountinghole_se:
+        what: mountinghole
+        where:
+          ref: matrix_index_home
+          shift: [0.5kx, -0.5ky]
       # trrs:
       #   what: trrs
       #   where:

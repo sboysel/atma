@@ -291,83 +291,11 @@
       },
       {
         "netclass": "Default",
-        "pattern": "GP0"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "GP1"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "GP2"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "GP3"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "GP4"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "GP5"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "GP6"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "GP7"
-      },
-      {
-        "netclass": "Default",
         "pattern": "GP8"
       },
       {
         "netclass": "Default",
         "pattern": "GP9"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "GP10"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "GP11"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "GP12"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "GP13"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "GP14"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "GP15"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "GP26"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "GP27"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "GP28"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "GP29"
       },
       {
         "netclass": "Default",
