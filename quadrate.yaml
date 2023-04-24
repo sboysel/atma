@@ -1,6 +1,8 @@
 units:
   kx: U
   ky: U
+  px: 100-5U
+  py: (100-5U) / 2
 
 points:
   zones:
@@ -29,17 +31,15 @@ points:
         top:
     thumbfan:
       anchor:
-        ref: matrix_index_bottom
-        shift: [0, -1.5ky]
+        ref: matrix_middle_bottom
+        shift: [px, -1ky - py]
       columns:
         near:
           key:
-            splay: -20
-            shift: [0, 1]
+        home:
+          key:
         far:
           key:
-            splay: -20
-            shift: [4.25, -1.75]
       rows:
         home:
   key:
@@ -55,20 +55,22 @@ outlines:
     - what: polygon
       points:
         # NW
-        - ref: matrix_pinky_top
-          shift: [-0.5kx, 0.5ky]
+        - ref: matrix_pinky_home
+          shift: [-0.5kx, 1.5ky + py]
+        - ref: matrix_middle_home
+          shift: [px - 0.5kx, 2.5ky + py]
         # NE
-        - ref: matrix_inner_top
-          shift: [0.5kx, 0.5ky]
+        - ref: matrix_inner_home
+          shift: [0.5kx + px, 2.5ky + py]
         # SE
-        - ref: thumbfan_far_home
-          shift: [0.5kx, 0.5ky]
-        - ref: thumbfan_far_home
-          shift: [0.5kx, -0.5ky]
+        - ref: matrix_inner_home
+          shift: [0.5kx + px, -2.5ky - py]
         # SW
-        - ref: matrix_pinky_bottom
-          shift: [-0.5kx, -0.5ky - 1.1ky]
-      fillet: 2
+        - ref: matrix_middle_home
+          shift: [px - 0.5kx, -2.5ky - py]
+        - ref: matrix_pinky_home
+          shift: [-0.5kx, -1.5ky - py]
+      fillet: 3
 
 pcbs:
   quadrate_pcb:
@@ -84,37 +86,77 @@ pcbs:
           keycaps: true
           reverse: true
           hotswap: false 
+          mirror_holes: true
           from: "{{name}}"
           to: GND
       rp2040_zero:
         what: rp2040_zero_tht_pads
         where:
-          ref: matrix_pinky_bottom
-          shift: [0.1kx, -1.05ky]
+          ref: matrix_index_top
+          shift: [0.1kx, 1 + (2ky + py) / 2]
           rotate: 90
-      trrs:
-        what: trrs
-        where:
-          ref: matrix_inner_bottom
-          shift: [0.7kx, -1ky]
-          rotate: 270
         params:
-          A: GND  # ring
-          B: VCC  # ring
-          C: GP0   # tip
-          D: GP1  # sleeve
-          reverse: true
-          symmetric: false
-          cross: true
-      # molex:
-      #   what: molex_441440003
+          GP0: matrix_pinky_bottom
+          GP1: matrix_pinky_home
+          GP2: matrix_pinky_top
+          GP3: matrix_ring_top
+          GP4: matrix_ring_home
+          GP5: matrix_ring_bottom
+          GP6: matrix_middle_bottom
+          GP7: matrix_middle_home
+          GP10: matrix_middle_top
+          GP11: matrix_inner_bottom
+          GP12: matrix_inner_home
+          GP13: matrix_inner_top
+          GP14: matrix_index_top
+          GP15: matrix_index_home
+          GP26: matrix_index_bottom
+          GP27: thumbfan_far_home
+          GP28: thumbfan_home_home
+          GP29: thumbfan_near_home
+      molex:
+        what: molex_441440003
+        where:
+          ref: matrix_inner_top
+          shift: [0.25kx, 0.7ky]
+          rotate: 180
+        params:
+          TX: GP8
+          RX: GP9
+          POWER: 3V3
+          GND: GND
+      mountinghole_nw:
+        what: mountinghole
+        where:
+          ref: matrix_ring_home
+          shift: [-0.5kx, 0.5ky]
+      mountinghole_sw:
+        what: mountinghole
+        where:
+          ref: matrix_ring_home
+          shift: [-0.5kx, -0.5ky]
+      mountinghole_ne:
+        what: mountinghole
+        where:
+          ref: matrix_index_home
+          shift: [0.5kx, 0.5ky]
+      mountinghole_se:
+        what: mountinghole
+        where:
+          ref: matrix_index_home
+          shift: [0.5kx, -0.5ky]
+      # trrs:
+      #   what: trrs
       #   where:
       #     ref: matrix_inner_bottom
-      #     shift: [-0.2kx, -1ky]
-      #     rotate: 90
+      #     shift: [0.7kx, -1ky]
+      #     rotate: 270
       #   params:
-      #     TX: GP0
-      #     RX: GP1
-      #     POWER: 3V3
-      #     GND: GND
+      #     A: GND  # ring
+      #     B: VCC  # ring
+      #     C: GP0   # tip
+      #     D: GP1  # sleeve
+      #     reverse: true
+      #     symmetric: false
+      #     cross: true
 
