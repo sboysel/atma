@@ -93,32 +93,32 @@ pcbs:
         what: rp2040_zero_tht_pads
         where:
           ref: matrix_index_top
-          shift: [0.15kx, (2ky + py) / 2]
+          shift: [0.1kx, 1 + (2ky + py) / 2]
           rotate: 90
         params:
-          GP0: matrix_pinky_top
+          GP0: matrix_pinky_bottom
           GP1: matrix_pinky_home
-          GP2: matrix_pinky_bottom
+          GP2: matrix_pinky_top
           GP3: matrix_ring_top
           GP4: matrix_ring_home
           GP5: matrix_ring_bottom
-          GP6: matrix_middle_top
+          GP6: matrix_middle_bottom
           GP7: matrix_middle_home
-          GP10: matrix_middle_bottom
+          GP10: matrix_middle_top
           GP11: matrix_inner_bottom
           GP12: matrix_inner_home
           GP13: matrix_inner_top
-          GP27: matrix_index_top
-          GP28: matrix_index_home
-          GP29: matrix_index_bottom
-          GP14: thumbfan_far_home
-          GP15: thumbfan_home_home
-          GP26: thumbfan_near_home
+          GP14: matrix_index_top
+          GP15: matrix_index_home
+          GP26: matrix_index_bottom
+          GP27: thumbfan_far_home
+          GP28: thumbfan_home_home
+          GP29: thumbfan_near_home
       molex:
         what: molex_441440003
         where:
           ref: matrix_inner_top
-          shift: [0.31kx, 0.7ky]
+          shift: [0.25kx, 0.7ky]
           rotate: 180
         params:
           TX: GP8
