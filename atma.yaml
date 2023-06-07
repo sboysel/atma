@@ -20,7 +20,7 @@ points:
     thumbfan:
       anchor:
         ref: matrix_index_bottom
-        shift: [0, -1.5ky]
+        shift: [0, -1.25ky]
       columns:
         near:
         home:
@@ -44,18 +44,18 @@ outlines:
           shift: [-0.5kx, 0.5ky]
         # NE
         - ref: matrix_inner_top
-          shift: [1.5kx, 0.5ky]
+          shift: [1kx, 0.5ky]
+        # E
+        - ref: matrix_inner_bottom
+          shift: [1.5kx, 0.75ky]
         # SE
-        # - ref: matrix_inner_bottom
-        #   shift: [1.5kx, -0.5ky]
         - ref: thumbfan_far_home
           shift: [0.5kx, -0.5ky]
-        # S
         - ref: thumbfan_near_home
           shift: [-0.5kx, -0.5ky]
         # SW
         - ref: matrix_pinky_bottom
-          shift: [-0.5kx, -1.7ky]
+          shift: [-0.5kx, -1.75ky]
       fillet: 2
 
 pcbs:
@@ -103,32 +103,40 @@ pcbs:
       molex:
         what: molex_441440003
         where:
-          ref: matrix_inner_home
-          shift: [1kx, 0.6ky]
+          ref: matrix_inner_bottom
+          shift: [1kx, -0.25ky]
           rotate: 180
         params:
           TX: GP12
           RX: GP13
           POWER: 3V3
           GND: GND
-      mountinghole_nw:
-        what: mountinghole
-        where:
-          ref: matrix_ring_home
-          shift: [-0.5kx, 0.5ky]
-      mountinghole_ne:
-        what: mountinghole
-        where:
-          ref: matrix_index_home
-          shift: [0.5kx, 0.5ky]
-      mountinghole_se:
-        what: mountinghole
-        where:
-          ref: thumbfan_home_home
-          shift: [0.5kx, 0.5ky]
-      mountinghole_sw:
+      mountinghole_left:
         what: mountinghole
         where:
           ref: matrix_pinky_bottom
-          shift: [0.1kx, -1.05ky]
-
+          shift: [0.5kx, 0.5ky]
+      mountinghole_center:
+        what: mountinghole
+        where:
+          ref: matrix_middle_home
+          shift: [0.5kx, 0.5ky]
+      mountinghole_right:
+        what: mountinghole
+        where:
+          ref: thumbfan_near_home
+          shift: [0.5kx, 0.5ky]
+      version_text:
+        what: text 
+        where:
+          ref: matrix_ring_home
+          shift: [0.5kx, 0.5ky]
+        params:
+          text: 'atma v0.2.0'
+      jlc_text:
+        what: text 
+        where:
+          ref: matrix_ring_bottom
+          shift: [0.5kx, 0.5ky]
+        params:
+          text: 'JLCJLCJLCJLC'
