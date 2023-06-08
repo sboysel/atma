@@ -2,7 +2,6 @@
     "name": "atma",
     "version": "0.2.0",
     "dependencies": {
-        "@jscad/modeling": "2.11.0",
         "ergogen": "github:sboysel/ergogen#develop"
     },
     "scripts": {
