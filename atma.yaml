@@ -44,9 +44,6 @@ outlines:
           shift: [-0.5kx, 0.5ky]
         # NE
         - ref: matrix_inner_top
-          shift: [1kx, 0.5ky]
-        # E
-        - ref: matrix_inner_bottom
           shift: [1.5kx, 0.5ky]
         # SE
         - ref: thumbfan_far_home
@@ -103,8 +100,8 @@ pcbs:
       molex:
         what: molex_441440003
         where:
-          ref: matrix_inner_bottom
-          shift: [1kx, -0.4ky]
+          ref: matrix_inner_top
+          shift: [0.95kx, -0.39ky]
           rotate: 180
         params:
           TX: GP12
@@ -124,7 +121,7 @@ pcbs:
       mountinghole_right:
         what: mountinghole
         where:
-          ref: thumbfan_near_home
+          ref: thumbfan_home_home
           shift: [0.5kx, 0.5ky]
       version_text:
         what: text 

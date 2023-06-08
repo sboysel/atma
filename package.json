@@ -6,6 +6,6 @@
         "ergogen": "github:sboysel/ergogen#develop"
     },
     "scripts": {
-        "gen": "ergogen atma.yaml"
+        "gen": "ergogen -o ergogen atma.yaml"
     }
 }
