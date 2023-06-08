@@ -56,7 +56,7 @@ outlines:
         # SW
         - ref: matrix_pinky_bottom
           shift: [-0.5kx, -1.75ky]
-      fillet: 2
+      fillet: 3
 
 pcbs:
   atma:
@@ -91,12 +91,12 @@ pcbs:
           GP6: matrix_middle_top
           GP7: matrix_middle_home
           GP8: matrix_middle_bottom
-          GP9: matrix_index_top
+          GP9: matrix_index_bottom
           GP10: matrix_index_home
-          GP11: matrix_index_bottom
-          GP14: matrix_inner_bottom
+          GP11: matrix_index_top
+          GP14: matrix_inner_top
           GP15: matrix_inner_home
-          GP26: matrix_inner_top
+          GP26: matrix_inner_bottom
           GP27: thumbfan_near_home
           GP28: thumbfan_home_home
           GP29: thumbfan_far_home
@@ -104,7 +104,7 @@ pcbs:
         what: molex_441440003
         where:
           ref: matrix_inner_bottom
-          shift: [1kx, -0.25ky]
+          shift: [1kx, -0.4ky]
           rotate: 180
         params:
           TX: GP12
