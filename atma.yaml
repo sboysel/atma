@@ -1,8 +1,6 @@
 units:
   kx: U
   ky: U
-  px: 100-5U
-  py: (100-5U) / 2
 
 points:
   zones:
@@ -11,35 +9,22 @@ points:
         shift: [8kx, -8ky]
       columns:
         pinky:
-          key:
-            stagger: 0
         ring:
-          key:
-            stagger: 0
         middle:
-          key:
-            stagger: 0
         index:
-          key:
-            stagger: 0
         inner:
-          key:
-            stagger: 0
       rows:
         bottom:
         home:
         top:
     thumbfan:
       anchor:
-        ref: matrix_middle_bottom
-        shift: [px, -1ky - py]
+        ref: matrix_index_bottom
+        shift: [0, -1.25ky]
       columns:
         near:
-          key:
         home:
-          key:
         far:
-          key:
       rows:
         home:
   key:
@@ -55,25 +40,23 @@ outlines:
     - what: polygon
       points:
         # NW
-        - ref: matrix_pinky_home
-          shift: [-0.5kx, 1.5ky + py]
-        - ref: matrix_middle_home
-          shift: [px - 0.5kx, 2.5ky + py]
+        - ref: matrix_pinky_top
+          shift: [-0.5kx, 0.5ky]
         # NE
-        - ref: matrix_inner_home
-          shift: [0.5kx + px, 2.5ky + py]
+        - ref: matrix_inner_top
+          shift: [1.5kx, 0.5ky]
         # SE
-        - ref: matrix_inner_home
-          shift: [0.5kx + px, -2.5ky - py]
+        - ref: thumbfan_far_home
+          shift: [0.5kx, -0.5ky]
+        - ref: thumbfan_near_home
+          shift: [-0.5kx, -0.5ky]
         # SW
-        - ref: matrix_middle_home
-          shift: [px - 0.5kx, -2.5ky - py]
-        - ref: matrix_pinky_home
-          shift: [-0.5kx, -1.5ky - py]
+        - ref: matrix_pinky_bottom
+          shift: [-0.5kx, -1.75ky]
       fillet: 3
 
 pcbs:
-  atma_pcb:
+  atma:
     outlines:
       main:
         outline: atma_bottom_plate
@@ -86,77 +69,71 @@ pcbs:
           keycaps: true
           reverse: true
           hotswap: false 
-          mirror_holes: true
+          mirror_holes: false
           from: "{{name}}"
           to: GND
       rp2040_zero:
         what: rp2040_zero_tht_pads
         where:
-          ref: matrix_index_top
-          shift: [0.1kx, 1 + (2ky + py) / 2]
+          ref: matrix_pinky_bottom
+          shift: [0.1kx, -1.05ky]
           rotate: 90
         params:
-          GP0: matrix_pinky_bottom
+          GP0: matrix_pinky_top
           GP1: matrix_pinky_home
-          GP2: matrix_pinky_top
-          GP3: matrix_ring_top
+          GP2: matrix_pinky_bottom
+          GP3: matrix_ring_bottom
           GP4: matrix_ring_home
-          GP5: matrix_ring_bottom
-          GP6: matrix_middle_bottom
+          GP5: matrix_ring_top
+          GP6: matrix_middle_top
           GP7: matrix_middle_home
-          GP10: matrix_middle_top
-          GP11: matrix_inner_bottom
-          GP12: matrix_inner_home
-          GP13: matrix_inner_top
-          GP14: matrix_index_top
-          GP15: matrix_index_home
-          GP26: matrix_index_bottom
-          GP27: thumbfan_far_home
+          GP8: matrix_middle_bottom
+          GP9: matrix_index_bottom
+          GP10: matrix_index_home
+          GP11: matrix_index_top
+          GP14: matrix_inner_top
+          GP15: matrix_inner_home
+          GP26: matrix_inner_bottom
+          GP27: thumbfan_near_home
           GP28: thumbfan_home_home
-          GP29: thumbfan_near_home
+          GP29: thumbfan_far_home
       molex:
         what: molex_441440003
         where:
           ref: matrix_inner_top
-          shift: [0.25kx, 0.7ky]
+          shift: [0.95kx, -0.39ky]
           rotate: 180
         params:
-          TX: GP8
-          RX: GP9
+          TX: GP12
+          RX: GP13
           POWER: 3V3
           GND: GND
-      mountinghole_nw:
+      mountinghole_left:
         what: mountinghole
         where:
-          ref: matrix_ring_home
-          shift: [-0.5kx, 0.5ky]
-      mountinghole_sw:
-        what: mountinghole
-        where:
-          ref: matrix_ring_home
-          shift: [-0.5kx, -0.5ky]
-      mountinghole_ne:
-        what: mountinghole
-        where:
-          ref: matrix_index_home
+          ref: matrix_pinky_bottom
           shift: [0.5kx, 0.5ky]
-      mountinghole_se:
+      mountinghole_center:
         what: mountinghole
         where:
-          ref: matrix_index_home
-          shift: [0.5kx, -0.5ky]
-      # trrs:
-      #   what: trrs
-      #   where:
-      #     ref: matrix_inner_bottom
-      #     shift: [0.7kx, -1ky]
-      #     rotate: 270
-      #   params:
-      #     A: GND  # ring
-      #     B: VCC  # ring
-      #     C: GP0   # tip
-      #     D: GP1  # sleeve
-      #     reverse: true
-      #     symmetric: false
-      #     cross: true
-
+          ref: matrix_middle_home
+          shift: [0.5kx, 0.5ky]
+      mountinghole_right:
+        what: mountinghole
+        where:
+          ref: thumbfan_home_home
+          shift: [0.5kx, 0.5ky]
+      version_text:
+        what: text 
+        where:
+          ref: matrix_ring_home
+          shift: [0.5kx, 0.5ky]
+        params:
+          text: 'atma v0.2.0'
+      jlc_text:
+        what: text 
+        where:
+          ref: matrix_ring_bottom
+          shift: [0.5kx, 0.5ky]
+        params:
+          text: 'JLCJLCJLCJLC'
