@@ -47,7 +47,7 @@ outlines:
           shift: [1kx, 0.5ky]
         # E
         - ref: matrix_inner_bottom
-          shift: [1.5kx, 0.75ky]
+          shift: [1.5kx, 0.5ky]
         # SE
         - ref: thumbfan_far_home
           shift: [0.5kx, -0.5ky]
