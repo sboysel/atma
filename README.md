@@ -17,8 +17,13 @@
 
 ## versions
 
-- [v0.2.0](#v020) ([release](https://github.com/sboysel/atma/releases/tag/v0.2.0))
+- [v0.2.1-kong](#v021-kong) ([release](https://github.com/sboysel/atma/releases/tag/v0.2.1-kong)): same as v0.2.0 but with the outer thumb key dropped a few millimeters (similar to weteor/Kong).
+- [v0.2.0](#v020) ([release](https://github.com/sboysel/atma/releases/tag/v0.2.0)): more ergonomic thumb cluster
 - [v0.0.1](#v001) ([release](https://github.com/sboysel/atma/releases/tag/v0.0.1)): Initial prototype. Tested and functional. A diodeless ~~clone of~~ homage to [skarrmann/janus](https://github.com/skarrmann/janus) with RP2040 Zero.
+
+### v0.2.1-kong
+
+![v0.2.1-kong left](img/v0_2_1-kong_left.png)
 
 ### v0.2.0
 
