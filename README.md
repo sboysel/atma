@@ -7,6 +7,14 @@
 - Diodeless, reversible PCB
 - RJ45 split comms
 
+## bom
+
+- 2 PCB (see `prod/gerber`)
+- 2 Waveshare RP2040 Zero
+- 2 Molex 0441440003 ([DigiKey](https://www.digikey.com/en/products/detail/molex/0441440003/761960))
+- 36 MX switches and keycaps
+- (optional) 6 M2 6MM bolts and nuts to fasten extra PCBs as bottom plates.
+
 ## versions
 
 - [v0.2.0](#v020) ([release](https://github.com/sboysel/atma/releases/tag/v0.2.0))
