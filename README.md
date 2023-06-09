@@ -10,7 +10,7 @@
 ## versions
 
 - [v0.2.0](#v020) ([release](https://github.com/sboysel/atma/releases/tag/v0.2.0))
-- [v0.0.1](#v001) ([release](https://github.com/sboysel/atma/releases/tag/v0.0.1)): Initial prototype. Tested and functional. A diodeless [skarrmann/janus]() clone with RP2040 Zero.
+- [v0.0.1](#v001) ([release](https://github.com/sboysel/atma/releases/tag/v0.0.1)): Initial prototype. Tested and functional. A diodeless ~~clone of~~ homage to [skarrmann/janus](https://github.com/skarrmann/janus) with RP2040 Zero.
 
 ### v0.2.0
 
