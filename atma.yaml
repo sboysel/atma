@@ -1,6 +1,23 @@
+meta:
+  engine: 4.0.0
+  name: glittercliff
+  version: 0.0.2
+  author: sboysel
+  url: https://github.com/sboysel/glittercliff
+
+
 units:
   kx: U
   ky: U
+  # thumb
+  offset: 0.2ky
+  stagger: 0.125ky
+  # pcb
+  pcb_fillet: 2
+  # vias
+  vx: 7
+  vy: 0.25ky
+
 
 points:
   zones:
@@ -17,26 +34,24 @@ points:
         bottom:
         home:
         top:
-    thumbfan:
+    thumb:
       anchor:
         ref: matrix_index_bottom
-        shift: [0, -1.25ky]
+        shift: [0, -1ky - offset]
       columns:
         near:
-        home:
+        middle:
         far:
+          key:
+            stagger: -stagger
       rows:
         home:
   key:
-    padding: ky
+    padding: 1ky
+    spread: 1kx
 
 outlines:
-  _switches:
-    - what: rectangle
-      where: true
-      size: 14
-      bound: false
-  atma_bottom_plate:
+  pcb:
     - what: polygon
       points:
         # NW
@@ -46,94 +61,151 @@ outlines:
         - ref: matrix_inner_top
           shift: [1.5kx, 0.5ky]
         # SE
-        - ref: thumbfan_far_home
+        - ref: thumb_far_home
           shift: [0.5kx, -0.5ky]
-        - ref: thumbfan_near_home
-          shift: [-0.5kx, -0.5ky]
         # SW
         - ref: matrix_pinky_bottom
-          shift: [-0.5kx, -1.75ky]
+          shift: [-0.5kx, -0.5ky - 1ky - offset - stagger]
+      fillet: pcb_fillet
+  case:
+    - what: outline
+      name: pcb
+      expand: 4
+  _compartment:
+    - what: polygon
+      points:
+        - ref: matrix_inner_top
+          shift: [0.5kx + stagger, 0.75ky]
+        - ref: matrix_inner_bottom
+          shift: [0.5kx + stagger, -0.5ky]
+        - ref: matrix_inner_bottom
+          shift: [2kx + 0.5kx + stagger, -0.5ky]
+        - ref: matrix_inner_top
+          shift: [2.5kx + stagger, 0.75ky]
       fillet: 3
+  compartment:
+    - pcb
+    - -_compartment
+  keycaps:
+    - what: rectangle
+      where: true
+      size: kx
+      bound: false
+  switches:
+    - what: rectangle
+      where: true
+      size: 14
+      bound: false
+  switch_cutouts:
+    - what: rectangle
+      where: true
+      size: [7, 15]
+      bound: false
 
 pcbs:
   atma:
     outlines:
       main:
-        outline: atma_bottom_plate
+        outline: pcb
         footprints:
     footprints:
+      pico:
+        what: weact_pi_pico
+        where:
+          ref: matrix_ring_bottom
+          shift: [-0.15kx, -1ky - offset]
+          rotate: 90
+        params:
+          orientation: 'down' # LHS: MCU buttons down
+                              # RHS: MCU buttons up
+          GP0: matrix_pinky_top
+          GP1: matrix_pinky_home
+          GP2: matrix_pinky_bottom
+          GP3: matrix_index_bottom
+          GP4: matrix_index_home
+          GP5: matrix_index_top
+          GP6: matrix_inner_top
+          GP7: matrix_inner_home
+          GP8: matrix_inner_bottom
+          GP9: matrix_ring_bottom
+          GP10: matrix_ring_home
+          GP11: matrix_ring_top
+          GP12: matrix_middle_top
+          GP13: matrix_middle_home
+          GP14: matrix_middle_bottom
+          GP18: thumb_far_home
+          GP19: thumb_middle_home
+          GP20: thumb_near_home
+      encoder:
+        what: rotary
+        where:
+          ref: matrix_inner_bottom
+          shift: [1.1kx, 0]
+          rotate: 90
+        params:
+          from: GP21
+          to: GP22
+          A: GP21
+          B: GND
+          C: GP23
+      molex:
+        what: molex_441440003
+        where:
+          ref: matrix_inner_top
+          shift: [1.05kx, -0.4ky]
+          rotate: 180
+        params:
+          TX: GP16
+          RX: GP17
+          POWER: VSYS
+          GND: GND
       mx:
         what: mx
         where: true
         params:
           keycaps: true
           reverse: true
-          hotswap: false 
-          mirror_holes: false
+          hotswap: true
           from: "{{name}}"
-          to: GND
-      rp2040_zero:
-        what: rp2040_zero_tht_pads
+          to: GND 
+      via_center:
+        what: via
         where:
-          ref: matrix_pinky_bottom
-          shift: [0.1kx, -1.05ky]
-          rotate: 90
+          - /matrix/
+          - /thumb/
         params:
-          GP0: matrix_pinky_top
-          GP1: matrix_pinky_home
-          GP2: matrix_pinky_bottom
-          GP3: matrix_ring_bottom
-          GP4: matrix_ring_home
-          GP5: matrix_ring_top
-          GP6: matrix_middle_top
-          GP7: matrix_middle_home
-          GP8: matrix_middle_bottom
-          GP9: matrix_index_bottom
-          GP10: matrix_index_home
-          GP11: matrix_index_top
-          GP14: matrix_inner_top
-          GP15: matrix_inner_home
-          GP26: matrix_inner_bottom
-          GP27: thumbfan_near_home
-          GP28: thumbfan_home_home
-          GP29: thumbfan_far_home
-      molex:
-        what: molex_441440003
+          net: "{{name}}"
+        adjust:
+          shift: [0, -vy]
+      via_left:
+        what: via
         where:
-          ref: matrix_inner_top
-          shift: [0.95kx, -0.39ky]
-          rotate: 180
+          - /matrix/
+          - /thumb/
         params:
-          TX: GP12
-          RX: GP13
-          POWER: 3V3
-          GND: GND
-      mountinghole_left:
-        what: mountinghole
+          net: "{{name}}"
+        adjust:
+          shift: [-vx, -vy]
+      via_right:
+        what: via
         where:
-          ref: matrix_pinky_bottom
-          shift: [0.5kx, 0.5ky]
-      mountinghole_center:
-        what: mountinghole
-        where:
-          ref: matrix_middle_home
-          shift: [0.5kx, 0.5ky]
-      mountinghole_right:
-        what: mountinghole
-        where:
-          ref: thumbfan_home_home
-          shift: [0.5kx, 0.5ky]
-      version_text:
-        what: text 
-        where:
-          ref: matrix_ring_home
-          shift: [0.5kx, 0.5ky]
+          - /matrix/
+          - /thumb/
         params:
-          text: 'atma v0.2.0'
+          net: "{{name}}"
+        adjust:
+          shift: [vx, -vy]
       jlc_text:
         what: text 
         where:
-          ref: matrix_ring_bottom
-          shift: [0.5kx, 0.5ky]
+          ref: matrix_middle_top
+          shift: [0, -0.5ky]
         params:
           text: 'JLCJLCJLCJLC'
+      version_text:
+        what: text 
+        where:
+          ref: matrix_middle_home
+          shift: [0, -0.5ky]
+        params:
+          text: 'atma v0.3.0'
