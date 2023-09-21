@@ -1575,6 +1575,36 @@
                 (effects (font (size 1 1) (thickness 0.15)) )
             )
         
+
+      (module DrillHole (layer "F.Cu")
+      (at 209.55 163.35375 0)
+      (pad "" np_thru_hole circle (at 0 0) (size 3 3) (drill 3) (layers *.Cu *.Mask))
+    )
+    
+
+      (module DrillHole (layer "F.Cu")
+      (at 247.65 165.73499999999999 0)
+      (pad "" np_thru_hole circle (at 0 0) (size 3 3) (drill 3) (layers *.Cu *.Mask))
+    )
+    
+
+      (module DrillHole (layer "F.Cu")
+      (at 161.925 123.82499999999999 0)
+      (pad "" np_thru_hole circle (at 0 0) (size 3 3) (drill 3) (layers *.Cu *.Mask))
+    )
+    
+
+      (module DrillHole (layer "F.Cu")
+      (at 161.925 142.875 0)
+      (pad "" np_thru_hole circle (at 0 0) (size 3 3) (drill 3) (layers *.Cu *.Mask))
+    )
+    
+
+      (module DrillHole (layer "F.Cu")
+      (at 219.07500000000002 123.82499999999999 0)
+      (pad "" np_thru_hole circle (at 0 0) (size 3 3) (drill 3) (layers *.Cu *.Mask))
+    )
+    
             (gr_line (start 142.875 186.16625) (end 142.875 179.85500000000002) (angle 90) (layer Edge.Cuts) (width 0.15))
 (gr_line (start 142.875 166.85500000000002) (end 142.875 105.77499999999999) (angle 90) (layer Edge.Cuts) (width 0.15))
 (gr_line (start 143.875 104.77499999999999) (end 256.175 104.77499999999999) (angle 90) (layer Edge.Cuts) (width 0.15))
