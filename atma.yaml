@@ -1,7 +1,7 @@
 meta:
-  engine: 4.0.0
+  engine: 4.0.4
   name: glittercliff
-  version: 0.0.2
+  version: 1.0.0
   author: sboysel
   url: https://github.com/sboysel/glittercliff
 
@@ -13,11 +13,11 @@ units:
   offset: 0.2ky
   stagger: 0.125ky
   # pcb
-  pcb_fillet: 2
+  pcb_fillet: 1
   # vias
   vx: 7
-  vy: 0.25ky
-
+  vy: -0.25ky
+  mcuy: -1ky - offset / 2
 
 points:
   zones:
@@ -45,12 +45,18 @@ points:
           key:
             stagger: -stagger
       rows:
-        home:
+        mods:
   key:
     padding: 1ky
     spread: 1kx
 
 outlines:
+  _mcu-cutout:
+    - what: rectangle 
+      where:
+        ref: matrix_pinky_bottom
+        shift: [0, mcuy]
+      size: [22, 13]
   pcb:
     - what: polygon
       points:
@@ -61,17 +67,18 @@ outlines:
         - ref: matrix_inner_top
           shift: [1.5kx, 0.5ky]
         # SE
-        - ref: thumb_far_home
+        - ref: thumb_far_mods
           shift: [0.5kx, -0.5ky]
         # SW
         - ref: matrix_pinky_bottom
           shift: [-0.5kx, -0.5ky - 1ky - offset - stagger]
       fillet: pcb_fillet
+    - -_mcu-cutout
   case:
     - what: outline
       name: pcb
       expand: 4
-  _compartment:
+  _compartment_molex_encoder:
     - what: polygon
       points:
         - ref: matrix_inner_top
@@ -82,10 +89,21 @@ outlines:
           shift: [2kx + 0.5kx + stagger, -0.5ky]
         - ref: matrix_inner_top
           shift: [2.5kx + stagger, 0.75ky]
-      fillet: 3
+  _compartment_pico:
+    - what: polygon
+      points:
+        - ref: matrix_pinky_bottom
+          shift: [-0.75kx, -0.5ky - stagger]
+        - ref: matrix_middle_bottom
+          shift: [0.5kx - stagger, -0.5ky - stagger]
+        - ref: matrix_middle_bottom
+          shift: [0.5kx - stagger, -2.5ky - stagger]
+        - ref: matrix_pinky_bottom
+          shift: [-0.75kx, -2.5ky - stagger]
   compartment:
-    - pcb
-    - -_compartment
+    - _compartment_molex_encoder
+    - _compartment_pico
+    - ~pcb
   keycaps:
     - what: rectangle
       where: true
@@ -109,55 +127,41 @@ pcbs:
         outline: pcb
         footprints:
     footprints:
-      pico:
-        what: weact_pi_pico
+      rp2040-zero:
+        what: rp2040_zero_tht_pads
         where:
-          ref: matrix_ring_bottom
-          shift: [-0.15kx, -1ky - offset]
+          ref: matrix_pinky_bottom
+          shift: [2, mcuy]
           rotate: 90
         params:
-          orientation: 'down' # LHS: MCU buttons down
-                              # RHS: MCU buttons up
-          GP0: matrix_pinky_top
+          GP0: matrix_pinky_bottom
           GP1: matrix_pinky_home
-          GP2: matrix_pinky_bottom
-          GP3: matrix_index_bottom
-          GP4: matrix_index_home
-          GP5: matrix_index_top
-          GP6: matrix_inner_top
-          GP7: matrix_inner_home
-          GP8: matrix_inner_bottom
-          GP9: matrix_ring_bottom
-          GP10: matrix_ring_home
-          GP11: matrix_ring_top
-          GP12: matrix_middle_top
-          GP13: matrix_middle_home
-          GP14: matrix_middle_bottom
-          GP18: thumb_far_home
-          GP19: thumb_middle_home
-          GP20: thumb_near_home
-      encoder:
-        what: rotary
-        where:
-          ref: matrix_inner_bottom
-          shift: [1.1kx, 0]
-          rotate: 90
-        params:
-          from: GP21
-          to: GP22
-          A: GP21
-          B: GND
-          C: GP23
+          GP2: matrix_pinky_top
+          GP3: matrix_ring_bottom
+          GP4: matrix_ring_home
+          GP5: matrix_ring_top
+          GP6: matrix_middle_bottom
+          GP7: matrix_middle_home
+          GP8: matrix_middle_top
+          GP9: matrix_index_top
+          GP10: matrix_index_home
+          GP11: matrix_index_bottom
+          GP14: matrix_inner_bottom
+          GP15: matrix_inner_home
+          GP26: matrix_inner_top
+          GP27: thumbfan_far_home
+          GP28: thumbfan_middle_home
+          GP29: thumbfan_near_home      
       molex:
         what: molex_441440003
         where:
           ref: matrix_inner_top
-          shift: [1.05kx, -0.4ky]
+          shift: [1kx, -0.39ky]
           rotate: 180
         params:
-          TX: GP16
-          RX: GP17
-          POWER: VSYS
+          TX: GP12
+          RX: GP13
+          POWER: 3V3
           GND: GND
       mx:
         what: mx
@@ -168,15 +172,6 @@ pcbs:
           hotswap: true
           from: "{{name}}"
           to: GND 
-      via_center:
-        what: via
-        where:
-          - /matrix/
-          - /thumb/
-        params:
-          net: "{{name}}"
-        adjust:
-          shift: [0, -vy]
       via_left:
         what: via
         where:
@@ -185,7 +180,7 @@ pcbs:
         params:
           net: "{{name}}"
         adjust:
-          shift: [-vx, -vy]
+          shift: [-vx, vy]
       via_right:
         what: via
         where:
@@ -194,7 +189,7 @@ pcbs:
         params:
           net: "{{name}}"
         adjust:
-          shift: [vx, -vy]
+          shift: [vx, vy]
       jlc_text:
         what: text 
         where:
@@ -208,4 +203,4 @@ pcbs:
           ref: matrix_middle_home
           shift: [0, -0.5ky]
         params:
-          text: 'atma v0.3.0'
+          text: 'atma v1.0.0'
