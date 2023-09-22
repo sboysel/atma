@@ -118,7 +118,7 @@ outlines:
     - _h_nw
     - _h_sw
   # pcb
-  pcb:
+  _pcb:
     - what: polygon
       points:
         # NW
@@ -134,9 +134,11 @@ outlines:
         - ref: matrix_pinky_bottom
           shift: [-0.5kx, -0.5ky - 1ky - ty - ts]
       fillet: pcb_fillet
+  pcb:
+    - _pcb
     - -_cutout_mcu
   plate:
-    - pcb
+    - _pcb
     - -_cutout_switches
     - -_cutout_molex
   case:
