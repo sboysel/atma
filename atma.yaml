@@ -5,14 +5,13 @@ meta:
   author: sboysel
   url: https://github.com/sboysel/glittercliff
 
-
 units:
   kx: U
   ky: U
   px: 0.5kx
   py: 0.5ky
   # thumb
-  ty: 0.2ky
+  ty: 0.25ky
   ts: 0.125ky
   # pcb
   pcb_fillet: 1
@@ -20,7 +19,7 @@ units:
   vx: 7
   vy: -0.25ky
   # mcu
-  mcuy: -1ky - ty / 2
+  mcuy: -1ky - ty / 2 - 1
   # case
   case_thickness: 8
 
@@ -64,120 +63,95 @@ outlines:
         shift: [0, mcuy]
       size: [22, 13]
   _cutout_molex:
-    - what: polygon
-      points:
-        - ref: matrix_inner_top
-          shift: [0.5kx, 0.75ky]
-        - ref: matrix_inner_top
-          shift: [0.5kx, -0.5ky]
-        - ref: matrix_inner_top
-          shift: [2kx, -0.5ky]
-        - ref: matrix_inner_top
-          shift: [2kx, 0.75ky]
-      fillet: pcb_fillet
+    - what: rectangle 
+      where:
+        ref: matrix_inner_top
+        shift: [2px + ts, 0]
+      size: [16, 50]
   _cutout_switches:
     - what: rectangle
       where: true
       size: 14
       bound: false
-  # mounting holes
-  _h_thumbfan_near:
-    - what: circle 
-      radius: 2.2
-      where:
-        ref: thumb_near_mods
-        shift: [0, py + ts]
-  _h_thumbfan_far:
-    - what: circle 
-      radius: 2.2
-      where:
-        ref: thumb_far_mods
-        shift: [0, py + ts]
-  _h_nw:
-    - what: circle 
-      radius: 2.2
-      where:
-        ref: matrix_pinky_home
-        shift: [px, py]
-  _h_sw:
-    - what: circle 
-      radius: 2.2
-      where:
-        ref: matrix_pinky_bottom
-        shift: [px, py]
-  _h_ne:
-    - what: circle
-      radius: 2.2
-      where:
-        ref: matrix_index_home
-        shift: [px, py]
-  mountinghole: # add mounting posts to case
-    - _h_thumbfan_far
-    - _h_thumbfan_near
-    - _h_ne
-    - _h_nw
-    - _h_sw
-  # pcb
   _pcb:
     - what: polygon
       points:
         # NW
         - ref: matrix_pinky_top
-          shift: [-0.5kx, 0.5ky]
+          shift: [-px, py]
         # NE
         - ref: matrix_inner_top
-          shift: [1.5kx, 0.5ky]
+          shift: [3px + ts, py]
         # SE
         - ref: thumb_far_mods
-          shift: [0.5kx, -0.5ky]
+          shift: [px + ts, -py]
         # SW
         - ref: matrix_pinky_bottom
-          shift: [-0.5kx, -0.5ky - 1ky - ty - ts]
-      fillet: pcb_fillet
+          shift: [-px, -py - 1ky - ty - ts]
+  _compartment:
+    # molex
+    - what: polygon
+      points:
+        - ref: matrix_inner_top
+          shift: [px + 2, py]
+        - ref: matrix_inner_bottom
+          shift: [px + 2, -py]
+        - ref: matrix_inner_bottom
+          shift: [4px, -py]
+        - ref: matrix_inner_top
+          shift: [4px, py]
+    # mcu
+    - what: polygon
+      points:
+        - ref: matrix_pinky_bottom
+          shift: [-px, -py - 2]
+        - ref: matrix_pinky_bottom
+          shift: [-px, -py - 1ky - ty - ts]
+        - ref: matrix_middle_bottom
+          shift: [px - 2, -py - 1ky - ty - ts]
+        - ref: matrix_middle_bottom
+          shift: [px - 2, -py - 2]
+  # exports
   pcb:
-    - _pcb
+    - what: outline
+      name: _pcb
+      fillet: pcb_fillet
     - -_cutout_mcu
-  plate:
-    - _pcb
-    - -_cutout_switches
-    - -_cutout_molex
   case:
     - what: outline
-      name: pcb
+      name: _pcb
       expand: case_thickness + 0.5
+      joints: 1
+      fillet: pcb_fillet
+  pcb_cavity:
+    - what: outline
+      name: _pcb
+      expand: 0.5
+  compartment:
+    - _pcb
+    - ~_compartment
+  side_cutouts:
+    - what: outline
+      name: _cutout_mcu
+      expand: 3
+      joints: 1
+      adjust:
+        shift: [-10, 0]
+    - _cutout_molex
+  keycaps:
+    - what: rectangle
+      where: true
+      size: kx + 0.25
+      bound: false
+  switches:
+    - _cutout_switches
+  switch_notches:
+    - what: rectangle
+      where: true
+      size: [7, 15]
+      bound: false
 
 pcbs:
-  atma-plate:
-    outlines:
-      main:
-        outline: plate
-        footprints:
-    footprints:
-      mh_thumbfan_near:
-        what: mountinghole 
-        where:
-          ref: thumb_near_mods
-          shift: [0, py + ts]
-      mh_thumbfan_far:
-        what: mountinghole 
-        where:
-          ref: thumb_far_mods
-          shift: [0, py + ts]
-      mh_nw:
-        what: mountinghole 
-        where:
-          ref: matrix_pinky_home
-          shift: [px, py]
-      mh_sw:
-        what: mountinghole 
-        where:
-          ref: matrix_pinky_bottom
-          shift: [px, py]
-      mh_ne:
-        what: mountinghole 
-        where:
-          ref: matrix_index_home
-          shift: [px, py]
   atma:
     outlines:
       main:
@@ -213,7 +187,7 @@ pcbs:
         what: molex_441440003
         where:
           ref: matrix_inner_top
-          shift: [1kx, -0.39ky]
+          shift: [2px + ts, -0.39ky]
           rotate: 180
         params:
           TX: GP12
@@ -261,38 +235,3 @@ pcbs:
           shift: [0, -0.5ky]
         params:
           text: 'atma v1.0.0'
-      h_thumbfan_near:
-        what: drill 
-        where:
-          ref: thumb_near_mods
-          shift: [0, py + ts]
-        params:
-          size: 3
-      h_thumbfan_far:
-        what: drill 
-        where:
-          ref: thumb_far_mods
-          shift: [0, py + ts]
-        params:
-          size: 3
-      h_nw:
-        what: drill 
-        where:
-          ref: matrix_pinky_home
-          shift: [px, py]
-        params:
-          size: 3
-      h_sw:
-        what: drill 
-        where:
-          ref: matrix_pinky_bottom
-          shift: [px, py]
-        params:
-          size: 3
-      h_ne:
-        what: drill 
-        where:
-          ref: matrix_index_home
-          shift: [px, py]
-        params:
-          size: 3
